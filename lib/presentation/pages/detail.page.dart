@@ -1,4 +1,4 @@
-import 'package:double_partners/models/info_model.dart';
+import 'package:double_partners/models/info.model.dart';
 import 'package:double_partners/presentation/shared/layout.shared.dart';
 import 'package:flutter/material.dart';
 

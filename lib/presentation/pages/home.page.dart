@@ -1,5 +1,4 @@
 import 'package:double_partners/blocs/info_list/info_list_bloc.dart';
-import 'package:double_partners/presentation/shared/layout.shared.dart';
 import 'package:double_partners/presentation/shared/layout_custom.shared.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';

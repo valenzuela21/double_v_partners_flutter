@@ -1,3 +1,4 @@
+import 'package:double_partners/blocs/addres_list/address_list_bloc.dart';
 import 'package:double_partners/blocs/info_list/info_list_bloc.dart';
 import 'package:double_partners/presentation/routes/route.dart';
 import 'package:double_partners/presentation/themes/app.theme.dart';
@@ -16,7 +17,8 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
-        BlocProvider<InfoListBloc>(create: (context) => InfoListBloc())
+        BlocProvider<InfoListBloc>(create: (context) => InfoListBloc()),
+        BlocProvider<AddressListBloc>(create: (context) => AddressListBloc())
       ],
       child: MaterialApp(
         title: 'Double V Partners',

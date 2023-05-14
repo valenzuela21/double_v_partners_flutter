@@ -1,3 +1,4 @@
+import 'package:double_partners/blocs/addres_list/address_list_bloc.dart';
 import 'package:double_partners/blocs/info_list/info_list_bloc.dart';
 import 'package:double_partners/presentation/components/form/input.form.dart';
 import 'package:double_partners/presentation/components/modal.component.dart';
@@ -35,6 +36,7 @@ class _CreatePageState extends State<CreatePage> {
   Widget build(BuildContext context) {
     final colorScheme = Theme.of(context).colorScheme;
     final size = MediaQuery.of(context).size;
+    final emailValid = RegExp(r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+");
     return Layout(
         child: Form(
       key: _formKey,
@@ -95,6 +97,9 @@ class _CreatePageState extends State<CreatePage> {
                     if (value == null || value.trim().isEmpty) {
                       return "Ingresa el email completo";
                     }
+                    if(!emailValid.hasMatch(value)) {
+                      return "Ingresa el email correctmente";
+                    }
                     return null;
                   },
                 ),
@@ -121,19 +126,7 @@ class _CreatePageState extends State<CreatePage> {
                   },
                 ),
                 const SizedBox(height: 8),
-                SizedBox(
-                  height: 120,
-                  child: ListView.builder(
-                      itemCount: 20,
-                      itemBuilder: (BuildContext context, int index) {
-                        return Container(
-                          padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 15),
-                          color: Colors.transparent,
-                          child: Text("cra 101 no. 40 - 57",
-                              style: Theme.of(context).textTheme.titleSmall),
-                        );
-                      }),
-                ),
+                ListAddressWidget(),
                 const SizedBox(height: 8),
                 MaterialButton(
                     disabledColor: Theme.of(context).colorScheme.secondary,
@@ -188,49 +181,90 @@ class _CreatePageState extends State<CreatePage> {
   }
 }
 
+class ListAddressWidget extends StatelessWidget {
+  const ListAddressWidget({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    final  listAddress = context.read<AddressListBloc>().state.listAddress;
+    return SizedBox(
+      height: 120,
+      child: ListView.builder(
+          itemCount: listAddress.length,
+          itemBuilder: (BuildContext context, int index) {
+            return Container(
+              padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 15),
+              color: Colors.transparent,
+              child: Text(listAddress[index].address,
+                  style: Theme.of(context).textTheme.titleSmall),
+            );
+          }),
+    );
+  }
+}
+
 class AddNewAddress extends StatelessWidget {
-  const AddNewAddress({Key? key}) : super(key: key);
+  late final String addressTxt;
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  final AutovalidateMode _autoValidateMode = AutovalidateMode.always;
 
   @override
   Widget build(BuildContext context) {
     final colorScheme = Theme.of(context).colorScheme;
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.center,
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        TextFormField(
-          enableSuggestions: false,
-          cursorColor: Theme.of(context).colorScheme.primary,
-          autocorrect: false,
-          decoration: InputDecorations.generalInputDecoration(
-              hinText: 'Ingresa la dirección del domicilio',
-              labelText: 'Dirección',
-              colorInput: colorScheme.secondary),
-          validator: (String? value) {
-            if (value == null || value.trim().isEmpty) {
-              return "Ingresa la dirección";
-            }
-            return null;
-          },
-          onSaved: (String? value) {},
-        ),
-        MaterialButton(
-            disabledColor: Theme.of(context).colorScheme.primary,
-            focusColor: Theme.of(context).colorScheme.primary,
-            splashColor: Theme.of(context).colorScheme.primary,
-            highlightColor: Theme.of(context).colorScheme.primary,
-            elevation: 0,
-            color: Theme.of(context).colorScheme.tertiary,
-            onPressed: () {
-              Navigator.pushNamed(context, "/create");
+
+    return Form(
+      key: _formKey,
+      autovalidateMode: _autoValidateMode,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          TextFormField(
+            enableSuggestions: false,
+            cursorColor: Theme.of(context).colorScheme.primary,
+            autocorrect: false,
+            decoration: InputDecorations.generalInputDecoration(
+                hinText: 'Ingresa la dirección del domicilio',
+                labelText: 'Dirección',
+                colorInput: colorScheme.secondary),
+            validator: (String? value) {
+              if (value == null || value.trim().isEmpty) {
+                return "Ingresa la dirección";
+              }
+              return null;
             },
-            child: Container(
-              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 15),
-              child: Text("Agregar Nueva Dirección".toUpperCase(),
-                  style: const TextStyle(
-                      color: Colors.white, fontWeight: FontWeight.w700)),
-            )),
-      ],
+            onSaved: (String? value) {
+              addressTxt = value!;
+            },
+          ),
+          const SizedBox(
+            height: 9,
+          ),
+          MaterialButton(
+              disabledColor: Theme.of(context).colorScheme.primary,
+              focusColor: Theme.of(context).colorScheme.primary,
+              splashColor: Theme.of(context).colorScheme.primary,
+              highlightColor: Theme.of(context).colorScheme.primary,
+              elevation: 0,
+              color: Theme.of(context).colorScheme.tertiary,
+              onPressed: () {
+                var valid = _formKey.currentState!.validate();
+                if(valid){
+                  _formKey.currentState?.save();
+                  context.read<AddressListBloc>().add(AddAddressEvent(address: addressTxt));
+                  Navigator.of(context).pop();
+                }
+              },
+              child: Container(
+                padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 15),
+                child: Text("Agregar Nueva Dirección".toUpperCase(),
+                    style: const TextStyle(
+                        color: Colors.white, fontWeight: FontWeight.w700)),
+              )),
+        ],
+      ),
     );
   }
 }
