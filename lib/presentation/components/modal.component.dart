@@ -6,10 +6,11 @@ class ModalComponent {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
+          insetPadding: const EdgeInsets.all(10.0),
           contentPadding: const EdgeInsets.all(8.0),
           content: SizedBox(
             width: 400,
-            height: size.height / 3.5,
+            height: size.height / 4.0,
             child: child,
           ),
         );
