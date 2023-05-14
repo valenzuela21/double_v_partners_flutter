@@ -19,7 +19,7 @@ class MyApp extends StatelessWidget {
         BlocProvider<InfoListBloc>(create: (context) => InfoListBloc())
       ],
       child: MaterialApp(
-        title: 'Flutter Demo',
+        title: 'Double V Partners',
         debugShowCheckedModeBanner: false,
         initialRoute: AppRoute.initial,
         theme: AppTheme.theme(context),
