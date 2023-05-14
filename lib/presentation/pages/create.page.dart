@@ -1,20 +1,40 @@
+import 'package:double_partners/blocs/info_list/info_list_bloc.dart';
 import 'package:double_partners/presentation/components/form/input.form.dart';
 import 'package:double_partners/presentation/components/modal.component.dart';
 import 'package:double_partners/presentation/shared/layout.shared.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 
 import '../components/form/calendar.form.dart';
 
-class CreatePage extends StatelessWidget {
+class CreatePage extends StatefulWidget {
   CreatePage({Key? key}) : super(key: key);
 
   @override
+  State<CreatePage> createState() => _CreatePageState();
+}
+
+class _CreatePageState extends State<CreatePage> {
+  final TextEditingController _name = TextEditingController();
+  final TextEditingController _lastname = TextEditingController();
+  final TextEditingController _email = TextEditingController();
+  final TextEditingController _dataInputDate = TextEditingController();
+
+  @override
+  void dispose(){
+    _name.dispose();
+    _lastname.dispose();
+    _email.dispose();
+    _dataInputDate.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    final TextEditingController dataInputDate = TextEditingController();
     final colorScheme = Theme.of(context).colorScheme;
     const AutovalidateMode _autoValidateMode = AutovalidateMode.always;
     final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+
     return Layout(
         child: Form(
           key: _formKey,
@@ -23,6 +43,7 @@ class CreatePage extends StatelessWidget {
       children: [
           const SizedBox(height: 20),
           TextFormField(
+            controller: _name,
             enableSuggestions: false,
             cursorColor: Theme.of(context).colorScheme.primary,
             autocorrect: false,
@@ -34,10 +55,11 @@ class CreatePage extends StatelessWidget {
               }
               return null;
             },
-            onSaved: (String? value) {},
+
           ),
           const SizedBox(height: 8),
           TextFormField(
+            controller: _lastname,
             enableSuggestions: false,
             cursorColor: Theme.of(context).colorScheme.primary,
             autocorrect: false,
@@ -45,15 +67,31 @@ class CreatePage extends StatelessWidget {
             decoration: InputDecorations.generalInputDecoration(hinText: 'Ingresa el apellido completo', labelText: 'Apellido', colorInput: colorScheme.secondary ),
             validator: (String? value) {
               if (value == null || value.trim().isEmpty) {
-                return "Ingresa el nombre completo";
+                return "Ingresa el apellido completo";
               }
               return null;
             },
-            onSaved: (String? value) {},
+
           ),
+        const SizedBox(height: 8),
+        TextFormField(
+          controller: _email,
+          enableSuggestions: false,
+          cursorColor: Theme.of(context).colorScheme.primary,
+          autocorrect: false,
+          keyboardType: TextInputType.emailAddress,
+          decoration: InputDecorations.generalInputDecoration(hinText: 'Ingresa el email completo', labelText: 'Correo Electrónico', colorInput: colorScheme.secondary ),
+          validator: (String? value) {
+            if (value == null || value.trim().isEmpty) {
+              return "Ingresa el email completo";
+            }
+            return null;
+          },
+
+        ),
           const SizedBox(height: 8),
           TextFormField(
-            controller: dataInputDate,
+            controller: _dataInputDate,
             enableSuggestions: false,
             cursorColor: Theme.of(context).colorScheme.primary,
             autocorrect: false,
@@ -67,7 +105,7 @@ class CreatePage extends StatelessWidget {
               return null;
             },
             onTap: () {
-              CalendarPicker.dialogBuilder(context, dataInputDate);
+              CalendarPicker.dialogBuilder(context, _dataInputDate);
             },
           ),
           const SizedBox(height: 8),
@@ -99,7 +137,15 @@ class CreatePage extends StatelessWidget {
               elevation: 0,
               color: Theme.of(context).colorScheme.tertiary,
               onPressed: (){
-                Navigator.pushNamed(context, "/create");
+                var valid = _formKey.currentState?.validate();
+                if(valid == true){
+                  context.read<InfoListBloc>().add(AddInfoList(name: _name.text, secondName: _lastname.text, email: _email.text));
+                  _name.clear();
+                  _lastname.clear();
+                  _email.clear();
+                  _dataInputDate.clear();
+                  Navigator.pushNamed(context, "/home");
+                }
               },
               child: Container(
                 padding:
@@ -112,7 +158,9 @@ class CreatePage extends StatelessWidget {
       ],
     ),
         ));
+
   }
+
 
 }
 
