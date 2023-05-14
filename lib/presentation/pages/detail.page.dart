@@ -3,7 +3,7 @@ import 'package:double_partners/presentation/shared/layout.shared.dart';
 import 'package:flutter/material.dart';
 
 class DetailPage extends StatelessWidget {
-  DetailPage({Key? key}) : super(key: key);
+  const DetailPage({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     final info = ModalRoute.of(context)?.settings.arguments as InfoModel;

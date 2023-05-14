@@ -1,6 +1,6 @@
-import 'package:bloc/bloc.dart';
 import 'package:double_partners/models/address.model.dart';
 import 'package:equatable/equatable.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 part 'address_list_event.dart';
 

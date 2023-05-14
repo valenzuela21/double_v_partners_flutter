@@ -4,12 +4,12 @@ part of 'address_list_bloc.dart';
 class AddressListState extends Equatable {
   final List<AddressModel> listAddress;
 
-  AddressListState({
+  const AddressListState({
     required this.listAddress
 });
 
   factory AddressListState.initial(){
-    return AddressListState(listAddress: []);
+    return const AddressListState(listAddress: []);
   }
 
   @override

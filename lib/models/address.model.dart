@@ -8,7 +8,7 @@ class  AddressModel extends Equatable{
   AddressModel({
     String? id,
     required this.address
-}): this.id =  id ?? uuid.v4();
+}): id =  id ?? uuid.v4();
 
   @override
   List<Object> get props => [address];

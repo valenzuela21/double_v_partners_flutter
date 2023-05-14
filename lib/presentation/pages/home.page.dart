@@ -9,7 +9,7 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    final infos = context.watch<InfoListBloc>().state.info_list;
+    final infos = context.watch<InfoListBloc>().state.infoList;
 
     return LayoutCustomShared(
       child: CustomScrollView(

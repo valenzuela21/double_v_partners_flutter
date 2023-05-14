@@ -11,7 +11,7 @@ class CalendarPicker{
           insetPadding: const EdgeInsets.all(8.0),
           contentPadding: const EdgeInsets.all(8.0),
           clipBehavior: Clip.antiAliasWithSaveLayer,
-          content: Container(
+          content: SizedBox(
             width: 450,
             height: 300,
             child: CalendarDatePicker2(

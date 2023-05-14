@@ -9,7 +9,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../components/form/calendar.form.dart';
 
 class CreatePage extends StatefulWidget {
-  CreatePage({Key? key}) : super(key: key);
+  const CreatePage({Key? key}) : super(key: key);
 
   @override
   State<CreatePage> createState() => _CreatePageState();
@@ -26,6 +26,7 @@ class _CreatePageState extends State<CreatePage> {
 
   @override
   void dispose() {
+    super.dispose();
     _name.dispose();
     _lastname.dispose();
     _email.dispose();
@@ -189,7 +190,7 @@ class ListAddressWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final  listAddress = context.read<AddressListBloc>().state.listAddress;
-    return SizedBox(
+    return !listAddress.isNotEmpty  ? SizedBox(
       height: 120,
       child: ListView.builder(
           itemCount: listAddress.length,
@@ -201,7 +202,7 @@ class ListAddressWidget extends StatelessWidget {
                   style: Theme.of(context).textTheme.titleSmall),
             );
           }),
-    );
+    ): const Text("No hay direcciones...");
   }
 }
 

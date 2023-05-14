@@ -14,7 +14,7 @@ abstract class AppRoute {
   static String initial = Routes.home;
   static Map<String, Widget Function(BuildContext)> routes =  {
     Routes.home: (context) => const HomePage(),
-    Routes.detail: (context) => DetailPage(),
-    Routes.create: (context) => CreatePage(),
+    Routes.detail: (context) => const DetailPage(),
+    Routes.create: (context) => const CreatePage(),
   };
 }
