@@ -7,8 +7,8 @@ class InfoListState extends Equatable {
 
   factory InfoListState.initial() {
     return InfoListState(infoList: [
-      InfoModel(name: "David Fernando", secondName: "Valenzuela Pardo", email: "vlzdavid2131@outlook.com", address: const ["cra 45 no.67-90"]),
-      InfoModel(name: "Andrea", secondName: "Valenzuela Garzón", email: "andrea4567@outlook.com", address: const ["cra 56 -90 no - 90"])
+      InfoModel(name: "David Fernando", secondName: "Valenzuela Pardo", email: "vlzdavid2131@outlook.com", address: [AddressModel(address: "cra 45 no.67-90")]),
+      InfoModel(name: "Andrea", secondName: "Valenzuela Garzón", email: "andrea4567@outlook.com", address: [AddressModel(address: "cra 56 no.90-90")])
     ]);
   }
 

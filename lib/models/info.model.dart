@@ -1,3 +1,4 @@
+import 'package:double_partners/models/address.model.dart';
 import 'package:equatable/equatable.dart';
 import 'package:uuid/uuid.dart';
 
@@ -8,7 +9,7 @@ class InfoModel extends Equatable {
   final String name;
   final String secondName;
   final String email;
-  final List<String> address;
+  final List<AddressModel> address;
 
 
   InfoModel({String? id, required this.name, required this.secondName, required  this.email, required this.address}): id = id ?? uuid.v4();

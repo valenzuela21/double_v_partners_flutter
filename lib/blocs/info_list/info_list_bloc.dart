@@ -1,4 +1,5 @@
 import 'package:bloc/bloc.dart';
+import 'package:double_partners/models/address.model.dart';
 import 'package:equatable/equatable.dart';
 
 import '../../models/info.model.dart';
@@ -12,7 +13,7 @@ class InfoListBloc extends Bloc<InfoListEvent, InfoListState> {
   }
 
   void  _addInfo(AddInfoList event, Emitter<InfoListState> emit){
-    final newInfo =  InfoModel(name: event.name, secondName: event.secondName, email: event.email, address: const []);
+    final newInfo =  InfoModel(name: event.name, secondName: event.secondName, email: event.email, address: event.address);
     final newInfoList = [...state.infoList, newInfo];
     emit(state.copyWith(infoList: newInfoList));
   }

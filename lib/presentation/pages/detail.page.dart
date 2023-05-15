@@ -26,18 +26,19 @@ class DetailPage extends StatelessWidget {
         const SizedBox(height:8),
         Text("Dirección:", style: Theme.of(context).textTheme.displaySmall),
         const SizedBox(height:8),
+        info.address.isNotEmpty ?
         SizedBox(
           height: 400,
           child: ListView.builder(
-              itemCount: 4,
+              itemCount: info.address.length,
               itemBuilder: (BuildContext context, int index) {
                 return Container(
                   height: 25,
                   color: Colors.transparent,
-                  child: Text("cra 101 no. 40 - 57",  style: Theme.of(context).textTheme.titleSmall),
+                  child: Text(info.address[index].address,  style: Theme.of(context).textTheme.titleSmall),
                 );
               }),
-        )
+        ) : Text("No hay direcciones...", style: Theme.of(context).textTheme.titleSmall)
       ],
     ));
   }

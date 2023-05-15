@@ -3,7 +3,6 @@ part of 'address_list_bloc.dart';
 
 class AddressListState extends Equatable {
   final List<AddressModel> listAddress;
-
   const AddressListState({
     required this.listAddress
 });

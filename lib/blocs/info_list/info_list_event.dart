@@ -11,10 +11,11 @@ class AddInfoList extends InfoListEvent {
   final String name;
   final String secondName;
   final String email;
+  final List<AddressModel> address;
 
   const AddInfoList(
-      {required this.name, required this.secondName, required this.email});
+      {required this.name, required this.secondName, required this.email, required this.address});
 
   @override
-  List<Object> get props => [name, secondName, email];
+  List<Object> get props => [name, secondName, email, address];
 }

@@ -35,6 +35,7 @@ class _CreatePageState extends State<CreatePage> {
 
   @override
   Widget build(BuildContext context) {
+    final  listAddress = context.watch<AddressListBloc>().state.listAddress;
     final colorScheme = Theme.of(context).colorScheme;
     final size = MediaQuery.of(context).size;
     final emailValid = RegExp(r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+");
@@ -127,7 +128,7 @@ class _CreatePageState extends State<CreatePage> {
                   },
                 ),
                 const SizedBox(height: 8),
-                ListAddressWidget(),
+                const ListAddressWidget(),
                 const SizedBox(height: 8),
                 MaterialButton(
                     disabledColor: Theme.of(context).colorScheme.secondary,
@@ -162,7 +163,9 @@ class _CreatePageState extends State<CreatePage> {
                 context.read<InfoListBloc>().add(AddInfoList(
                     name: _name.text,
                     secondName: _lastname.text,
-                    email: _email.text));
+                    email: _email.text,
+                    address: listAddress
+                ));
                 _name.clear();
                 _lastname.clear();
                 _email.clear();
@@ -190,7 +193,7 @@ class ListAddressWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final  listAddress = context.read<AddressListBloc>().state.listAddress;
-    return !listAddress.isNotEmpty  ? SizedBox(
+    return listAddress.isNotEmpty  ? SizedBox(
       height: 120,
       child: ListView.builder(
           itemCount: listAddress.length,
