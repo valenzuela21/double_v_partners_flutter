@@ -6,6 +6,8 @@ abstract class AddressListEvent extends Equatable {
   @override
   List<Object> get props => [];
 }
+class CleanAddressEvent extends AddressListEvent {}
+
 
 class AddAddressEvent extends AddressListEvent {
   final String address;

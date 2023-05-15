@@ -8,13 +8,18 @@ part 'address_list_state.dart';
 
 class AddressListBloc extends Bloc<AddressListEvent, AddressListState> {
   AddressListBloc() : super(AddressListState.initial()) {
-    on<AddAddressEvent>(_addDate);
+    on<AddAddressEvent>(_addAddress);
+    on<CleanAddressEvent>(_cleanAddress);
   }
 
-  void  _addDate(AddAddressEvent event, Emitter<AddressListState> emit){
+  void  _addAddress(AddAddressEvent event, Emitter<AddressListState> emit){
     final newData = AddressModel(address: event.address );
 
     final newAddress = [...state.listAddress, newData];
     emit(state.copyWith(listAddress: newAddress));
+  }
+
+  void _cleanAddress(CleanAddressEvent event, Emitter<AddressListState> emit){
+    emit(state.copyWith(listAddress: []));
   }
 }

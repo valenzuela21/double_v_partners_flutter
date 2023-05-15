@@ -1,4 +1,4 @@
-import 'package:double_partners/blocs/addres_list/address_list_bloc.dart';
+import 'package:double_partners/blocs/address_list/address_list_bloc.dart';
 import 'package:double_partners/blocs/info_list/info_list_bloc.dart';
 import 'package:double_partners/presentation/routes/route.dart';
 import 'package:double_partners/presentation/themes/app.theme.dart';
